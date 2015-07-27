@@ -1,0 +1,81 @@
+html {
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+* {
+	box-sizing: inherit;
+}
+.events{
+	width: 620px;
+	height: 720px;
+	padding-left: 10px;
+	padding-right: 10px;
+	position: relative;
+	background-color: rgba(236,236,236, 0.8);
+	float: left;
+}
+.event{
+	position: absolute;
+	border: 1px solid rgba(212,212,212, 1);
+	background-color: white;
+	/*margin-top: 50px;
+	margin-left: 0px;*/	
+}
+.event::before{
+	position: absolute;
+	content: "";
+	background-color: #4b6ea9;
+	height: 100%;
+	width: 5px;
+}
+
+
+.eventTitle{
+				margin-left: 10px;
+				color: rgba(100,129,177, 1);
+				font: 0.8em bold;
+			}
+			.eventLocation{
+				margin-left: 10px;
+				font-size: 0.6em;
+				display: inherit;
+				color: rgba(117,117,121, 1);
+			}
+			.dayTimeline {
+				float: left;
+   				height: 720px;
+   				width: 100px;
+				position: relative;
+				right: 2px;
+				top: -10px;
+				text-align: right;
+			}
+			.timeline {
+				margin: 0px;
+				list-style-type: none;
+			}
+   			.timelineHour {
+				text-align: right;
+				font-size: 0.8em;
+				line-height: 30px;
+			}
+			.timelineHour .hour{
+				font-weight: bold;
+				margin-right: 4px;
+			}
+			.timelineHour .ampm{
+				font-size: 0.6em;
+				color: rgba(170,170,170, 1);
+			}
+			.timelineHalfHour {
+				position: relative; 
+				text-align: right;
+				font-size: 0.7em;
+				line-height: 30px;
+			 }
+			 .timelineHalfHour .hour{
+				color: rgba(170,170,170, 1);
+			 }
+			  .header {
+				  margin-bottom: 40px;
+			  }
