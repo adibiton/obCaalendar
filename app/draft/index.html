@@ -1,0 +1,198 @@
+<html>
+	<head>
+		<style>
+			html {
+				box-sizing: border-box;
+				font-family: sans-serif;
+			}
+			* {
+				box-sizing: inherit;
+			}
+			.events{
+				width: 620px;
+				height: 720px;
+				padding-left: 10px;
+				padding-right: 10px;
+				position: relative;
+				background-color: rgba(236,236,236, 0.8);
+				float: left;
+			}
+			.event{
+				position: absolute;
+				border: 1px solid rgba(212,212,212, 1);
+				background-color: white;
+				/*margin-top: 50px;
+				margin-left: 0px;*/	
+			}
+			.event::before{
+				position: absolute;
+				content: "";
+				background-color: #4b6ea9;
+				height: 100%;
+				width: 5px;
+			}
+			.eventA{
+				width: 600px;
+				height: 30px;
+			}
+			.eventB{
+				width: 300px;
+				top: 30px;
+				height: 60px;
+			}
+			
+			.eventC{
+				width: 300px;
+				top: 30px;
+				height: 60px;
+				left: 310px;
+			}
+			.eventD{
+				width: 200px;
+				top: 90px;
+				height: 400px;
+			}
+			.eventE{
+				width: 200px;
+				top: 120px;
+				height: 30px;
+				left: 210px;
+			}
+			.eventF{
+				width: 200px;
+				top: 160px;
+				height: 40px;
+				left: 410px;
+			}
+			.eventTitle{
+				margin-left: 10px;
+				color: rgba(100,129,177, 1);
+				font: 0.8em bold;
+			}
+			.eventLocation{
+				margin-left: 10px;
+				font-size: 0.6em;
+				display: inherit;
+				color: rgba(117,117,121, 1);
+			}
+			.dayTimeline {
+				float: left;
+   				height: 720px;
+   				width: 100px;
+				position: relative;
+				right: 2px;
+				top: -10px;
+				text-align: right;
+			}
+			.timeline {
+				margin: 0px;
+				list-style-type: none;
+			}
+   			.timelineHour {
+				text-align: right;
+				font-size: 0.8em;
+				line-height: 30px;
+			}
+			.timelineHour .hour{
+				font-weight: bold;
+				margin-right: 4px;
+			}
+			.timelineHour .ampm{
+				font-size: 0.6em;
+				color: rgba(170,170,170, 1);
+			}
+			.timelineHalfHour {
+				position: relative; 
+				text-align: right;
+				font-size: 0.7em;
+				line-height: 30px;
+			 }
+			 .timelineHalfHour .hour{
+				color: rgba(170,170,170, 1);
+			 }
+			  .header {
+				  margin-bottom: 40px;
+			  }
+		</style>
+	</head>
+	<body>
+		<div class="header">Calendar</div>
+		<div class="calendar">
+			<div class="dayTimeline"></div>
+			<div class="events">
+				<div class="event" ><span class="eventTitle">all day event</span><span class="eventLocation">tel-aviv</span></div>
+				<div class="event eventA"><span class="eventTitle">Team Event</span><span class="eventLocation">Tel-Aviv</span></div>
+				<div class="event eventB"><span class="eventTitle">Team Event</span><span class="eventLocation">Haifa</span></div>
+				<div class="event eventC"><span class="eventTitle">Team Event</span><span class="eventLocation">Tel-Aviv</span></div>
+				<div class="event eventD"><span class="eventTitle">All Day Event</span><span class="eventLocation">Tel-Aviv</span></div>
+				<div class="event eventE"><span class="eventTitle">All Day Event</span><span class="eventLocation">Tel-Aviv</span></div>
+				<div class="event eventF"><span class="eventTitle">All Day Event</span><span class="eventLocation">Tel-Aviv</span></div>
+				<!--
+				<div class="event">
+					<h2>D</h2>
+				</div>
+				<div class="event">
+					<h2>E</h2>
+				</div>
+				<div class="event">
+					<h2>F</h2>
+				</div>
+				<div class="event">
+					<h2>G</h2>
+				</div>-->
+				<!--<div class="event" id="event3"></div>-->
+			</div>
+		</div>
+		<script>
+			var $timeline = document.getElementsByClassName("dayTimeline")[0];
+			var fragment = document.createDocumentFragment();
+			var timeline = [{ hour : "9:00", ampm: "AM"},{ hour : "9:30"},
+				{ hour : "10:00", ampm: "AM"},{ hour : "10:30"},
+				{ hour : "11:00", ampm: "AM"},{ hour : "11:30"},
+				{ hour : "12:00", ampm: "AM"},{ hour : "12:30"},
+				{ hour : "1:00", ampm: "PM"},{ hour : "1:30"},
+				{ hour : "2:00", ampm: "PM"},{ hour : "2:30"},
+				{ hour : "3:00", ampm: "PM"},{ hour : "3:30"},
+				{ hour : "4:00", ampm: "PM"},{ hour : "4:30"},
+				{ hour : "5:00", ampm: "PM"},{ hour : "5:30"},
+				{ hour : "6:00", ampm: "PM"},{ hour : "6:30"},
+				{ hour : "7:00", ampm: "PM"},{ hour : "7:30"},
+				{ hour : "8:00", ampm: "PM"},{ hour : "8:30"}
+				];
+			$ul = document.createElement("ul");
+			$ul.className = "timeline";
+			var $spanHour,  $spanAMPM;
+			
+			for(var i = 0; i < timeline.length; i++){
+				var $li = document.createElement("li");
+				var oTimeP = timeline[i];
+				if(!(i % 2)){
+					$li.className = "timelineHour";
+					$spanHour = document.createElement("span");
+					$spanHour.className = "hour";
+					$spanHour.innerHTML = oTimeP.hour;
+					$li.appendChild($spanHour);
+					
+					$spanAMPM = document.createElement("span");
+					$spanAMPM.className = "ampm";
+					$spanAMPM.innerHTML = oTimeP.ampm;
+					$li.appendChild($spanAMPM);
+					
+				}
+				else{
+					$li.className = "timelineHalfHour";
+					$spanHour = document.createElement("span");
+					$spanHour.className = "hour";
+					$spanHour.innerHTML = oTimeP.hour;
+					$li.appendChild($spanHour);
+				}
+				//$li.className = i % 2 ? "timelineHalfHour" : "timelineHour";
+				
+				//$li.innerHTML =  timeline[i];
+				fragment.appendChild($li);
+			}
+			$ul.appendChild(fragment);
+			$timeline.appendChild($ul);
+		</script>
+	</body>
+</html>

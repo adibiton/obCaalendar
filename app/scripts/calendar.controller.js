@@ -23,8 +23,8 @@ demo.app.CalendarController = (function () {
 	
 	/**
 	 * Add event
-	 * @param  {Object} event  the event you want to enter
-	 * @return {Object} CalendarController 
+	 * @param  {object} event  the event you want to enter
+	 * @return {object} CalendarController 
 	 */
 	/**
 	 * An event to fire whenever you want to add an event. Simply pass in the event
@@ -102,7 +102,7 @@ demo.app.CalendarController = (function () {
 		
 	/**
 	 * Get all events from model	 
-	 * @return [array] events  
+	 * @return {array} events  
 	 */
 	CalendarController.prototype.getAllEvents = function () {
 		var oData;
