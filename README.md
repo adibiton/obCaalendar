@@ -1,5 +1,6 @@
 
-**Calendar layout**
+**Calendar layout**  
+
 The following algorithm should solve the layout calendar problem:  
 1. Sort events objects by their start time  
 2. Calculate longestOverlapingChain (loc for shorten) for each event 
