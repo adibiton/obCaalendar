@@ -19,8 +19,7 @@ gulp.task('styles', function(){
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer({browsers: ['last 1 version']}))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/styles'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest('.tmp/styles'));
 });
 
 function lint(files, options) {
@@ -35,10 +34,17 @@ function lint(files, options) {
 var testLintOptions = {
   env: {
     mocha: true
+  },
+  rules: {
+    'no-use-before-define': 0
   }
 };
-
-gulp.task('lint', lint('app/scripts/**/*.js'));
+var lintOptions = {  
+  rules: {
+    'no-use-before-define': 0
+  }
+};
+gulp.task('lint', lint('app/scripts/**/*.js', lintOptions));
 gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
 gulp.task('html', ['styles'], function(){
@@ -54,30 +60,6 @@ gulp.task('html', ['styles'], function(){
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('images', function(){
-  return gulp.src('app/images/**/*')
-    .pipe($.if($.if.isFile, $.cache($.imagemin({
-      progressive: true,
-      interlaced: true,
-      // don't remove IDs from SVGs, they are often used
-      // as hooks for embedding and styling
-      svgoPlugins: [{cleanupIDs: false}]
-    }))
-    .on('error', function (err) {
-      console.log(err);
-      this.end();
-    })))
-    .pipe(gulp.dest('dist/images'));
-});
-
-gulp.task('fonts', function(){
-  return gulp.src(require('main-bower-files')({
-    filter: '**/*.{eot,svg,ttf,woff,woff2}'
-  }).concat('app/fonts/**/*'))
-    .pipe(gulp.dest('.tmp/fonts'))
-    .pipe(gulp.dest('dist/fonts'));
-});
-
 gulp.task('extras', function(){
   return gulp.src([
     'app/*.*',
@@ -89,7 +71,7 @@ gulp.task('extras', function(){
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['styles', 'fonts'], function(){
+gulp.task('serve', ['styles'], function(){
   browserSync({
     notify: false,
     port: 9000,
@@ -103,14 +85,11 @@ gulp.task('serve', ['styles', 'fonts'], function(){
 
   gulp.watch([
     'app/*.html',
-    'app/scripts/**/*.js',
-    'app/images/**/*',
-    '.tmp/fonts/**/*'
+    'app/scripts/**/*.js'    
   ]).on('change', reload);
 
-  gulp.watch('app/styles/**/*.scss', ['styles']);
-  gulp.watch('app/fonts/**/*', ['fonts']);
-  gulp.watch('bower.json', ['wiredep', 'fonts']);
+  gulp.watch('app/styles/**/*.scss', ['styles']);  
+  gulp.watch('bower.json', ['wiredep']);
 });
 
 gulp.task('serve:dist', function(){
@@ -132,7 +111,8 @@ gulp.task('serve:test', function(){
       baseDir: 'test',
       routes: {
         '/bower_components': 'bower_components',
-        '/app': 'app'
+        '/app': 'app',
+        '/tmp':'.tmp/styles'
       }
     }
   });
@@ -157,7 +137,7 @@ gulp.task('wiredep', function(){
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], function(){
+gulp.task('build', ['lint', 'html',  'extras'], function(){
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

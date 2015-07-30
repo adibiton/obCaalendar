@@ -8,19 +8,19 @@ demo.app.Model = (function(){
 	 * Creates a new Model instance and hooks up the storage.
 	 *
 	 * @constructor
-	 * @param {object} storage A reference to the client side storage class
+	 * @param {object} storage a reference to the client side storage class
 	 */
 	function Model(storage) {
 		this.storage = storage;
 	}
 
 	/**
-	 * Creates a new todo model
+	 * Creates a new events model
 	 *
 	 * @param {event} event in the calendar
 	 * @param {function} [callback] The callback to fire after the model is created
 	 */
-	Model.prototype.create = function (event, callback) {		
+	Model.prototype.create = function (event, callback) {
 		callback = callback || function () {};
 
 		this.storage.save(event, callback);
@@ -44,16 +44,16 @@ demo.app.Model = (function(){
 	Model.prototype.read = function (query, callback, context) {
 		var queryType = typeof query;
 		callback = callback || function () {};
-		
+
 		if(context){
 			if(queryType === 'function'){
-				query = query.bind(context);	
+				query = query.bind(context);
 			}
 			if(typeof callback === 'function'){
-				callback = callback.bind(context);	
-			}	
+				callback = callback.bind(context);
+			}
 		}
-		
+
 		if (queryType === 'function') {
 			callback = query;
 			return this.storage.findAll(callback);
@@ -72,7 +72,7 @@ demo.app.Model = (function(){
 	 * @param {number} id The id of the model to update
 	 * @param {object} data The properties to update and their new value
 	 * @param {function} callback The callback to fire when the update is complete.
-	 * @param {boolean} bRemoveOldData if yes, delete the old event data and enter the new one 
+	 * @param {boolean} bRemoveOldData if yes, delete the old event data and enter the new one
 	 */
 	Model.prototype.update = function (id, data, callback, bRemoveOldData) {
 		this.storage.save(data, callback, id, bRemoveOldData);
@@ -82,7 +82,7 @@ demo.app.Model = (function(){
 	 * Removes a model from storage
 	 *
 	 * @param {number} id The ID of the model to remove
-	 * @param {function} callback The callback to fire when the removal is complete.	 
+	 * @param {function} callback The callback to fire when the removal is complete.
 	 */
 	Model.prototype.remove = function (id, callback) {
 		this.storage.remove(id, callback);
@@ -95,37 +95,12 @@ demo.app.Model = (function(){
 	 */
 	Model.prototype.removeAll = function (callback, context) {
 		if(context){
-			this.storage.drop(callback.bind(context));	
+			this.storage.drop(callback.bind(context));
 		}
 		else{
 			this.storage.drop(callback);
 		}
-		
+
 	};
-
-	/**
-	 * Returns a count of all events
-	 */
-	Model.prototype.getCount = function (callback) {
-		var events = {
-			active: 0,
-			completed: 0,
-			total: 0
-		};
-
-		this.storage.findAll(function (data) {
-			data.forEach(function (event) {
-				if (event.completed) {
-					events.completed++;
-				} else {
-					events.active++;
-				}
-
-				events.total++;
-			});
-			callback(events);
-		});
-	};
-	
-	return Model; 	
+	return Model;
 }());
