@@ -35,9 +35,5 @@ Results are being offseted for layouting:
 
 > totalwidth = totalwidth - 20  
 > left = left + 10px  
-<<<<<<< HEAD
 > top = top
 > height = end - start
-=======
-> top = top + 10px
->>>>>>> 562385d90eda5b6d25fa6570dc0a45b91d8d9ed8
