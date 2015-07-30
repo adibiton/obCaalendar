@@ -90,8 +90,8 @@ demo.app.CalendarController = (function () {
 		this.model.read(function (aEvents) {
 			aEvents = this.sortEvents(aEvents);
 			aLOC = calculateLongestOverlappingChain(aEvents, this.utils);
-			aEvents.forEach(function(event, index){
-				event.loc = aLOC[event.id-1];
+			aEvents.forEach(function(event){
+				event.loc = aLOC[event.id - 1];
 				this.model.update(event.id, event);
 			}, this);
 		}, null, this);
@@ -146,14 +146,13 @@ demo.app.CalendarController = (function () {
 	 */
 	CalendarController.prototype.layoutEvents = function (aEvents, nContainerWidth, nContainerHeight) {
 		var nLCM;
-		var aSortedEvents;
-		
+
 		setLayoutParams(this.layout, nContainerWidth, nContainerHeight);
 		this.removeAllEvents();
 		this.addEvents(aEvents);
-		
-		this.calculateLOCAndUpdateModel()
-		
+
+		this.calculateLOCAndUpdateModel();
+
 		var aEventsLOC = getSetOfLOC(this.getAllEvents());
 
 		nLCM = this.layout.nNumberOfColumns = this.utils.calcLcm(aEventsLOC);
@@ -166,7 +165,7 @@ demo.app.CalendarController = (function () {
 	 * layout events on container
 	 * @return {object} calendarController
 	 */
-	CalendarController.prototype.layoutEventsOnContainer = function (callback) {
+	CalendarController.prototype.layoutEventsOnContainer = function () {
 		var aPositionedEvents = [];
 		this.model.read((function (aEvents) {
 			aEvents = this.sortEvents(aEvents);
@@ -206,7 +205,7 @@ demo.app.CalendarController = (function () {
 					}
 				}, this);
 			}, this);
-			
+
 			aPositionedEvents = calculateEventsPositionAttributes(this, aEvents, normalizeEvents);
 			this.updateEvents(aPositionedEvents, true);
 		}).bind(this));
@@ -344,7 +343,6 @@ demo.app.CalendarController = (function () {
 		aEvents.forEach(function (event, index) {
 				var aOverlapping = [];
 				var nMaxInChain = -1;
-					
 				if (index === 0) {
 					aChain.push(event);
 					return;
@@ -359,10 +357,10 @@ demo.app.CalendarController = (function () {
 				//event loc
 				if (x) {
 					aChain.push(event);
-				} else {										
+				} else {
 					aChain.forEach(function (e, i, arr) {
 //						resultEvents[arr[i].id] = getMax(arr.length, resultEvents[arr[i].id]);
-						nMaxInChain = getMax(getMax(arr.length, resultEvents[arr[i].id]), nMaxInChain);						
+						nMaxInChain = getMax(getMax(arr.length, resultEvents[arr[i].id]), nMaxInChain);
 						if (utils.isEventsOverlapping(arr[i], event)) {
 							aOverlapping.push(e);
 						}

@@ -42,11 +42,14 @@
     <script src="scripts/app.js"></script>
     <!-- endbuild -->
     <script type="text/javascript">
-      var aEvents = [
-          { id: 1, start: 60, end: 120 },  // an event from 10am to 11am
-          { id: 2, start: 100, end: 240 }, // an event from 10:40am to 1pm
-          { id: 3, start: 700, end: 720 }, // an event from 8:40pm to 9pm
-          { id: 4, start: 140, end: 500 }
+          var aEvents = [
+          { id: 1, start: 0, end: 70},
+          { id: 2, start: 30, end: 140},
+          { id: 3, start: 60, end: 300},
+          { id: 4, start: 80, end: 160},
+          { id: 5, start: 140, end: 180},
+          { id: 6, start: 160, end: 340},
+          { id: 7, start: 400, end: 460}         
         ];
         calendarApp.controller.layoutEvents(aEvents, 620, 720);
         calendarApp.controller.showCalendar();

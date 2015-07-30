@@ -243,7 +243,7 @@
         oCalendarController.layoutEvents(aEvents, 620, 720);
         oCalendarController.showCalendar();
         var nNumberOfEvents = document.querySelectorAll('.event').length;
-        assert.equal(nNumberOfEvents, 7);
+        assert.equal(nNumberOfEvents, 8);
       });
     });
 
