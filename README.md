@@ -1,7 +1,7 @@
 
 **Calendar layout**  
 
-The following algorithm should solve the layout calendar problem:  
+The following algorithm tries to solve the layout calendar problem:  
 1. Sort events objects by their start time ascending (and end time), e.g. three events with the following attributes:  
 > {id:2, start: 60, end: 100}  
 > {id:4, start: 60, end: 70}  
