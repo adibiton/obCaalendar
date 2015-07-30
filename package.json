@@ -1,6 +1,6 @@
 { 
   "name" : "obCalendar",
-  "version" : "0.1",
+  "version" : "v0.1.0",
   "description": "A package using versioning best-practices",
   "author": "Adi biton <adi.biton@gmail.com>",
   "scripts": {
