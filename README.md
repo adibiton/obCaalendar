@@ -1,5 +1,6 @@
 
-**Calendar layout**
+**Calendar layout**  
+
 The following algorithm should solve the layout calendar problem:  
 1. Sort events objects by their start time ascending (and end time), e.g. three events with the following attributes:  
 > {id:2, start: 60, end: 100}  
@@ -34,5 +35,9 @@ Results are being offseted for layouting:
 
 > totalwidth = totalwidth - 20  
 > left = left + 10px  
+<<<<<<< HEAD
 > top = top
 > height = end - start
+=======
+> top = top + 10px
+>>>>>>> 562385d90eda5b6d25fa6570dc0a45b91d8d9ed8
