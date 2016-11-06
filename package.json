@@ -1,8 +1,9 @@
 { 
   "name" : "obCalendar",
-  "version" : "v0.1.0",
-  "description": "A package using versioning best-practices",
-  "author": "Adi biton <adi.biton@gmail.com>",
+  "version" : "0.0.1",
+  "description": "A calendar app",
+  "license": "MIT",
+	"author": "Adi biton <adi.biton@gmail.com>",
   "scripts": {
     "postinstall" : "node_modules/.bin/bower install"
   },
